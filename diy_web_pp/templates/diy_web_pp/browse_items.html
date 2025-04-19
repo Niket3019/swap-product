@@ -1,0 +1,337 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY shop - Authentication</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+
+    <style>
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .hero-section h2 {
+                font-size: 1.8em;
+            }
+
+            .feature-card {
+                backdrop-filter: blur(8px);
+            }
+
+            .sell-form {
+                padding: 30px;
+                border-radius: 30px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sell-form h2 {
+                font-size: 2.5em;
+            }
+
+            .input-label {
+                font-size: 0.9em;
+            }
+
+            input,
+            textarea {
+                padding: 20px;
+                font-size: 1em;
+            }
+
+            .file-input-label {
+                padding: 20px;
+                font-size: 1em;
+            }
+
+            .submit {
+                padding: 20px;
+                font-size: 1.1em;
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-brand {
+            font-size: 1rem;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .card-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .rating {
+            margin: 10px 0;
+        }
+
+        .star {
+            color: #ffb400;
+            font-size: 1rem;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            color: #009688;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-condition-status {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .card-condition-status strong {
+            color: #444;
+        }
+
+        .swap-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .swap-btn:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .modal .close {
+            font-size: 1.8rem;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .modal .close:hover {
+            color: #111;
+        }
+
+        .modal-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .modal-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .modal-select:focus {
+            border-color: #4CAF50;
+        }
+
+        .modal-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: #45a049;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        {% include 'diy_web_pp/base.html' %}
+    </section>
+
+    <h2 style="text-align: center;">Explore Swaps</h2>
+    <div class="grid-container">
+        {% for item in items %}
+        <div class="card" data-item-id="{{ item.id }}">
+            <img src="{{ item.images.first.image.url }}" alt="{{ item.name }}" class="card-image" />
+            <div class="card-content">
+                <h4 class="card-brand">{{ item.brand }}</h4>
+                <p class="card-name">{{ item.name }}</p>
+                <div class="rating">
+                    {% for i in "12345" %}
+                    <span class="star">★</span>
+                    {% endfor %}
+                </div>
+                <p class="card-price">Rs.{{ item.price }}</p>
+                <div class="card-condition-status">
+                    <p class="condition"><strong>Condition:</strong> {{ item.condition }}</p>
+                    <p class="status"><strong>Status:</strong> {{ item.status }}</p>
+                </div>
+                <button type="button" class="swap-btn">Swap Now</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Swap Modal -->
+    <div id="swapModal" class="modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Select a Product to Swap</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'send_swap_request' 0 %}" id="swapForm">
+                    {% csrf_token %}
+                    <label for="userProduct" class="modal-label">Choose Your Product</label>
+                    <select name="userProduct" id="userProduct" class="modal-select">
+                        {% for user_item in user_swap_item %}
+                        <option value="{{ user_item.id }}">{{ user_item.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" name="targetItemId" id="targetItemId">
+                    <button type="submit" class="modal-button">Send Swap Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("swapModal");
+        const closeBtn = document.querySelector(".modal .close");
+        const targetItemIdInput = document.getElementById("targetItemId");
+        const swapForm = document.getElementById("swapForm");
+
+        document.querySelectorAll(".swap-btn").forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                const card = this.closest(".card");
+                const itemId = card.dataset.itemId;
+                targetItemIdInput.value = itemId;
+
+                // Dynamically update form action
+                swapForm.action = `/swap-request/${itemId}/`;
+
+                modal.style.display = "flex";
+            });
+        });
+
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+        
+    </script>
+</body>
+
+</html>

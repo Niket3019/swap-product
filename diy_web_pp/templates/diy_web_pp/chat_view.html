@@ -1,0 +1,64 @@
+<h2 style="text-align:center; margin-bottom: 20px;">
+  Chat: <span style="color:#2b6cb0;">{{ swap.from_item.name }}</span> 
+  ↔ 
+  <span style="color:#38a169;">{{ swap.to_item.name }}</span>
+</h2>
+
+<div style="
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+">
+  {% for msg in messages %}
+    <div style="
+      display: flex;
+      flex-direction: column;
+      align-items: {% if msg.sender == user %}flex-end{% else %}flex-start{% endif %};
+      margin-bottom: 12px;
+    ">
+      <div style="
+        background-color: {% if msg.sender == user %}#2b6cb0{% else %}#edf2f7{% endif %};
+        color: {% if msg.sender == user %}white{% else %}black{% endif %};
+        padding: 10px 14px;
+        border-radius: 20px;
+        max-width: 70%;
+        word-wrap: break-word;
+      ">
+        <strong>{{ msg.sender.username }}</strong><br>
+        {{ msg.message }}
+      </div>
+      <small style="color: #718096; margin-top: 4px;">
+        {{ msg.timestamp|date:"H:i d/m/Y" }}
+      </small>
+    </div>
+  {% endfor %}
+</div>
+
+<form method="post" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+  {% csrf_token %}
+  <textarea name="message" rows="3" placeholder="Type your message..." style="
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e0;
+    resize: none;
+    font-size: 14px;
+  " required></textarea>
+  <button type="submit" style="
+    align-self: flex-end;
+    background-color: #2b6cb0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  " onmouseover="this.style.backgroundColor='#2c5282'" onmouseout="this.style.backgroundColor='#2b6cb0'">
+    Send
+  </button>
+</form>

@@ -1,0 +1,818 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Selling - DIY Shop</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+  <!-- CSS Stylessheets -->
+  <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+  
+  <style>
+    /* ------------------------------
+       Global Styles
+    ------------------------------ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: rgba(138, 43, 226, 0.85);
+      --secondary: rgba(233, 30, 99, 0.85);
+      --accent: rgba(255, 64, 129, 0.85);
+      --text: #2a2a2a;
+      --bg-gradient-1: rgba(147, 86, 220, 0.1);
+      --bg-gradient-2: rgba(255, 110, 168, 0.1);
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --card-shadow: rgba(31, 38, 135, 0.15);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: 
+        linear-gradient(45deg, var(--bg-gradient-1), var(--bg-gradient-2)),
+        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover fixed;
+      color: var(--text);
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    
+    /* Hero Section Styles */
+    .hero-section {
+      text-align: center;
+      padding: 60px 20px;
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s ease;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2));
+      z-index: -1;
+      transform: skewY(-3deg);
+      transform-origin: top left;
+    }
+
+    .hero-section h2 {
+      background: linear-gradient(135deg, #8a2be2, #ff6ea8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.5em;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Feature Cards */
+    .feature-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px var(--card-shadow);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 15px 45px rgba(138, 43, 226, 0.2);
+      border-color: rgba(138, 43, 226, 0.3);
+    }
+
+    .feature-card i {
+      font-size: 3em;
+      background: linear-gradient(135deg, #8a2be2, #ff6ea8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    /* Enhanced Form Container */
+    .sell-form-container {
+      position: relative;
+      padding: 40px 20px;
+      margin: 60px 0;
+      overflow: hidden;
+    }
+
+    .sell-form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(138, 43, 226, 0.05), rgba(233, 30, 99, 0.05));
+      transform: skewY(-3deg);
+      transform-origin: top right;
+      z-index: -1;
+    }
+
+    /* Enhanced Form Styles */
+    .sell-form {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      padding: 60px;
+      border-radius: 40px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 80px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      animation: formFloat 1s ease-out;
+    }
+
+    .sell-form::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      animation: rotateBg 15s linear infinite;
+    }
+
+    .sell-form h2 {
+      font-size: 3.5em;
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #8a2be2, #ff6ea8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+      position: relative;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .sell-form h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .input-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .input-group:hover {
+      transform: translateX(5px);
+    }
+
+    .input-label {
+      position: absolute;
+      left: 15px;
+      top: -12px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2px 15px;
+      font-size: 0.95em;
+      color: var(--primary);
+      border-radius: 20px;
+      z-index: 1;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 25px;
+      font-size: 1.1em;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      color: var(--text);
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      margin: 30px 0;
+    }
+
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(233, 30, 99, 0.8));
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 1.2em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .file-input-label i {
+      font-size: 2em;
+      transition: transform 0.3s ease;
+    }
+
+    .file-input-label:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.9), rgba(233, 30, 99, 0.9));
+    }
+
+    .file-input-label:hover i {
+      transform: translateY(-3px);
+    }
+
+    #imagePreview {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin: 30px 0;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    #imagePreview.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .submit {
+      width: 100%;
+      padding: 25px;
+      font-size: 1.3em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(233, 30, 99, 0.8));
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
+    }
+
+    .submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.6s;
+    }
+
+    .submit:hover::before {
+      left: 100%;
+    }
+
+    .submit:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(138, 43, 226, 0.4);
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.9), rgba(233, 30, 99, 0.9));
+    }
+
+    /* Responsive Enhancement */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+      
+      .hero-section h2 {
+        font-size: 1.8em;
+      }
+
+      .feature-card {
+        backdrop-filter: blur(8px);
+      }
+
+      .sell-form {
+        padding: 30px;
+        border-radius: 30px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .sell-form h2 {
+        font-size: 2.5em;
+      }
+
+      .input-label {
+        font-size: 0.9em;
+      }
+
+      input, textarea {
+        padding: 20px;
+        font-size: 1em;
+      }
+
+      .file-input-label {
+        padding: 20px;
+        font-size: 1em;
+      }
+
+      .submit {
+        padding: 20px;
+        font-size: 1.1em;
+      }
+    }
+
+    /* New Animations */
+    @keyframes floatIn {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes formFloat {
+      0% { 
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rotateBg {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 40px 0;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 200px;
+    }
+
+    .swap-items {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .design-studio {
+      background: linear-gradient(135deg, #2196F3, #1976D2);
+      color: white;
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .swap-items:hover {
+      background: linear-gradient(135deg, #45a049, #4CAF50);
+    }
+
+    .design-studio:hover {
+      background: linear-gradient(135deg, #1976D2, #2196F3);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+ 
+</head>
+<body>
+  <section id="header">
+    <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+    
+  {% include 'diy_web_pp/base.html' %}
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+        <div class="container">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <!-- <i id="bar" class="fas fa-outdent"></i> -->
+    </div>
+</section>
+  <!-- Header -->
+  <header>
+    <h1>Start Selling on DIY Shop</h1>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h2>Transform Your Wardrobe, Transform the World</h2>
+    <p>Join our sustainable fashion revolution where creativity meets responsibility. DIY Shop is your platform to buy, sell, and breathe new life into pre-loved clothing.</p>
+    
+    <div class="features">
+      <div class="feature-card">
+        <i class="fas fa-recycle"></i>
+        <h3>Sustainable Fashion</h3>
+        <p>Give clothes a second chance while reducing textile waste and environmental impact.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-paint-brush"></i>
+        <h3>Creative Upcycling</h3>
+        <p>Transform old garments into unique pieces with our DIY tutorials and community inspiration.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-users"></i>
+        <h3>Community Driven</h3>
+        <p>Connect with like-minded fashion enthusiasts and share your upcycling journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Buttons -->
+  <section class="action-buttons">
+    <a href="swap-items.html" class="btn swap-items">Swap Items</a>
+    <a href="desing-studio.html" class="btn design-studio">Design Studio</a>
+  </section>
+
+  <!-- Sell Form Section -->
+  <div class="sell-form-container">
+    <section class="sell-form">
+      <h2>List Your Item</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-grid">
+            <div class="input-group">
+                <span class="input-label">Product Name</span>
+                <input type="text" id="product-name" name="product-name" placeholder="Enter your product name" required />
+            </div>
+            <div class="input-group">
+                <span class="input-label">Price</span>
+                <input type="number" id="product-price" name="product-price" placeholder="Enter your price" required />
+            </div>
+            <div class="input-group full-width">
+                <div class="file-input-wrapper">
+                    <label class="file-input-label" for="product-image">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Choose Product Image
+                    </label>
+                    <input type="file" id="product-image" name="product-image" accept="image/*" required onchange="previewImage(this)" />
+                </div>
+                <img id="imagePreview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;">
+            </div>
+            <div class="input-group full-width">
+                <span class="input-label">Description</span>
+                <textarea id="product-description" name="product-description" placeholder="Describe your product in detail..." rows="4" required></textarea>
+            </div>
+        </div>
+        <button type="submit" class="submit">
+            Upload Product
+            <div class="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section contact-info">
+        <h3>Contact</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+        <p><i class="fas fa-phone"></i> +91 9900000000</p>
+        <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Services</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>My Account</h3>
+        <ul>
+          <li><a href="#">Sign In</a></li>
+          <li><a href="#">View Cart</a></li>
+          <li><a href="#">My Wishlist</a></li>
+          <li><a href="#">Track My Order</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>We Accept</h3>
+        <ul>
+        <div class="payment-icons">
+        <img src="icons8-google-pay-48.png" alt="Google Pay" />
+        <img src="icons8-paypal-48.png" alt="PayPal" />
+        <!-- <img src="/images/visa.png" alt="Visa" />
+        <img src="/images/mastercard.png" alt="MasterCard" /> -->
+        </ul>
+        <p> payments with SSL encryption. Your data is protected.</p>
+        </div>
+    </div>
+    </div>
+  </footer>
+  
+
+  <script>
+    // Image preview function
+    function previewImage(input) {
+        const preview = document.getElementById('imagePreview');
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+
+    // Handle form submission
+    async function handleSubmit(e) {
+        e.preventDefault(); // Prevent page reload
+        console.log('handleSubmit called');
+
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData(form);
+
+        // Validate inputs
+        const productName = formData.get('product-name');
+        const productPrice = formData.get('product-price');
+        const productDescription = formData.get('product-description');
+        const productImage = formData.get('product-image');
+
+        if (!productName || !productPrice || !productDescription || !productImage) {
+            alert("Please fill all fields and upload an image.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/upload-product', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            if (response.ok) {
+                window.location.href = 'uploaded-products.html'; // Redirect after successful upload
+            }
+        } catch (error) {
+            console.error('Error uploading product:', error);
+            alert('Failed to upload product!');
+        }
+    }
+
+    // Attach event listener to form
+    document.getElementById('uploadForm').addEventListener('submit', handleSubmit);
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,499 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DIYshop</title>
+        <!-- Google Fonts -->
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <style>
+          /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Enhanced Navbar */
+        
+
+        /* Global Color Palette */
+        :root {
+            --primary-color: #8a2be2;
+            --secondary-color: #ff6ea8;
+            --text-color: #333;
+            --background-color: #f4f4f4;
+            --accent-color: #42a5f5;
+        }
+
+        /* Soft, Modern Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        
+        /* Contact Details Section */
+        #contact-details {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        #contact-details .details {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+
+        #contact-details .details:hover {
+            transform: translateY(-10px);
+        }
+
+        #contact-details .details span {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #contact-details .details h2 {
+            margin: 15px 0;
+            color: var(--text-color);
+            font-size: 1.8em;
+        }
+
+        #contact-details .details li {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            color: var(--text-color);
+        }
+
+        #contact-details .details li i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+
+        /* Form Details Section */
+        #form-details {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        #form-details form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+
+        #form-details form:hover {
+            transform: translateY(-10px);
+        }
+
+        #form-details form input, 
+        #form-details form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        #form-details form input:focus, 
+        #form-details form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.2);
+        }
+
+        #form-details form button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #form-details form button:hover {
+            transform: scale(1.05);
+        }
+
+        #form-details .people {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        #form-details .people div {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            width: 30%;
+            transition: transform 0.3s ease;
+        }
+
+        #form-details .people div:hover {
+            transform: translateY(-10px);
+        }
+
+        #form-details .people div img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #contact-details, 
+            #form-details {
+                flex-direction: column;
+            }
+
+            #contact-details .details, 
+            #form-details form, 
+            #form-details .people div {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+            footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+        </style>
+        <section id="header">
+            <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+            {% include 'diy_web_pp/base.html' %}
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <!-- <i id="bar" class="fas fa-outdent"></i> -->
+            </div>
+        </section>
+
+        <!-- <section id="page-header" class="about-header">
+            <h2>#let's_talk</h2>
+            <p>LEAVE A MESSAGE, We love to hear from you!</p>
+        </section> -->
+
+        <section id="contact-details" class="section-p1">
+            <div class="details">
+                <span>GET IN TOUCH</span>
+                <h2>Visit one of our agency locations or contact us today</h2>
+                <h3>Head Office</h3>
+                <li>
+                    <i class="fa-solid fa-map"></i>
+                    <p>AB Road , Street 10 , Mumbai</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>diyshop@gmail.com</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-phone"></i>
+                    <p> (+91) 0000000000 / (+91) 0101010101</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-clock"></i>
+                    <p> 9:00 - 18:00 , Mon - Sat</p>
+                </li>
+
+            </div>
+
+            <!-- <div class="Map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.1002008935875!2d88.36603699999999!3d22.575355400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277ad841dc3f9%3A0xa604ebe18d29ea59!2sMahatma%20Gandhi%20Rd%2C%20College%20Row%2C%20College%20Street%2C%20Kolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1676394734757!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div> -->
+        </section>
+
+        <section id="form-details">
+            <form action="">
+                <span>LEAVE A MESSAGE</span>
+                <h2>We love to hear from you</h2>
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="E-mail">
+                <input type="text" placeholder="Subject">
+                <textarea cols="30" rows="10" placeholder="Your Message"></textarea>
+                <a class="noraml" href=""><button class="normal">Submit</button></a>
+            </form>
+
+            <div class="people">
+                <div>
+                    <img src="img/people/1.png" alt="">
+                    <p><span>JIN</span> Senior Marketing Manager <br> Phone: +91 000 000 0000 <br>
+                    Email: Jin@gmail.com</p>
+                </div>
+                <div>
+                    <img src="img/people/2.png" alt="">
+                    <p><span>PAM</span> Senior Marketing Manager <br> Phone: +91 000 000 0000 <br>
+                    Email: Pam@gmail.com</p>
+                </div>
+                <div>
+                    <img src="img/people/3.png" alt="">
+                    <p><span>MICHAEL</span> Senior Marketing Manager <br> Phone: +91 000 000 0000 <br>
+                    Email: Michael@gmail.com</p>
+                </div>
+            </div>
+        </section>
+       
+
+        
+        <footer>
+            <div class="footer-container">
+              <div class="footer-section contact-info">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+        
+              <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms & Conditions</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="#">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+              </div>
+        
+              <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+            </div>
+          </footer>
+        
+
+        <!-- <div class="copyright">
+            <p>© 2023, Anshumohan Acharya</p>
+        </div> -->
+
+        <script src="index.js"></script>
+    </body>
+
+</html>

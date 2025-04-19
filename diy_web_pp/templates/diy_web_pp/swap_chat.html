@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Swap Requests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+
+      .hero-section h2 {
+        font-size: 1.8em;
+      }
+
+      .feature-card {
+        backdrop-filter: blur(8px);
+      }
+
+      .sell-form {
+        padding: 30px;
+        border-radius: 30px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .sell-form h2 {
+        font-size: 2.5em;
+      }
+
+      .input-label {
+        font-size: 0.9em;
+      }
+
+      input, textarea {
+        padding: 20px;
+        font-size: 1em;
+      }
+
+      .file-input-label {
+        padding: 20px;
+        font-size: 1em;
+      }
+
+      .submit {
+        padding: 20px;
+        font-size: 1.1em;
+      }
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+   
+  </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- ADD THIS WRAPPER DIV TO PUSH CONTENT AWAY FROM NAV -->
+    <div class="ml-48 px-4 pt-6"> <!-- Adjust ml-48 if needed -->
+      <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-md">
+        <div class="px-6 py-4 border-b flex justify-between items-center">
+          <h2 class="text-2xl font-bold text-gray-800">Your Swap Requests</h2>
+          <div class="flex space-x-4">
+            <button class="tab-btn font-medium text-blue-600 border-b-2 border-blue-600 pb-1" data-tab="sent">Sent</button>
+            <button class="tab-btn text-gray-600 hover:text-blue-600 pb-1" data-tab="received">Received</button>
+          </div>
+        </div>
+  
+        <div class="p-6">
+          <!-- Sent Tab -->
+          <div class="tab-content" id="tab-sent">
+            {% if sent_requests %}
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for swap in sent_requests %}
+                  <div class="bg-white border rounded-xl shadow p-4">
+                    {% if swap.from_item.images.all %}
+                      <img src="{{ swap.from_item.images.first.image.url }}" alt="Item Image" class="w-full h-40 object-cover rounded mb-4">
+                    {% else %}
+                      <img src="https://via.placeholder.com/150" alt="No Image" class="w-full h-40 object-cover rounded mb-4">
+                    {% endif %}
+                    <p class="text-gray-700"><strong>You offered:</strong> {{ swap.from_item.name }}</p>
+                    <p class="text-gray-700"><strong>In exchange for:</strong> {{ swap.to_item.name }}</p>
+                    <p class="mt-2">
+                      <strong>Status:</strong>
+                      {% if swap.is_accepted %}
+                        <span class="text-green-600">✅ Accepted</span>
+                      {% else %}
+                        <span class="text-yellow-600">⏳ Pending</span>
+                      {% endif %}
+                    </p>
+                    <a href="{% url 'chat_view' swap.id %}" class="inline-block mt-2 text-blue-600 hover:underline">💬 Open Chat</a>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-gray-500">No sent swap requests.</p>
+            {% endif %}
+          </div>
+  
+          <!-- Received Tab -->
+          <div class="tab-content hidden" id="tab-received">
+            {% if received_requests %}
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for swap in received_requests %}
+                  <div class="bg-white border rounded-xl shadow p-4">
+                    {% if swap.to_item.images.all %}
+                      <img src="{{ swap.to_item.images.first.image.url }}" alt="Item Image" class="w-full h-40 object-cover rounded mb-4">
+                    {% else %}
+                      <img src="https://via.placeholder.com/150" alt="No Image" class="w-full h-40 object-cover rounded mb-4">
+                    {% endif %}
+                    <p class="text-gray-700"><strong>{{ swap.from_user.username }} offered:</strong> {{ swap.from_item.name }}</p>
+                    <p class="text-gray-700"><strong>For your:</strong> {{ swap.to_item.name }}</p>
+                    <p class="mt-2">
+                      <strong>Status:</strong>
+                      {% if swap.is_accepted %}
+                        <span class="text-green-600">✅ Accepted</span>
+                      {% else %}
+                        <span class="text-yellow-600">⏳ Pending</span>
+
+                        <form method="post" action="{% url 'accept_swap'%}" class="mt-2">
+                          {% csrf_token %}
+                          <input type="hidden" name="swap_id" value="{{ swap.id }}">
+                          <button type="submit" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Accept Swap</button>
+                        </form>
+                      {% endif %}
+                    </p>
+                    <a href="{% url 'chat_view' swap.id %}" class="inline-block mt-2 text-blue-600 hover:underline">💬 Open Chat</a>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-gray-500">No received swap requests.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+  <!-- Tabs Script -->
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const tab = button.getAttribute("data-tab");
+
+        tabButtons.forEach(btn => {
+          btn.classList.remove("text-blue-600", "border-blue-600", "font-medium");
+          btn.classList.add("text-gray-600");
+        });
+
+        button.classList.add("text-blue-600", "border-blue-600", "font-medium");
+        button.classList.remove("text-gray-600");
+
+        tabContents.forEach(tc => tc.classList.add("hidden"));
+        document.getElementById(`tab-${tab}`).classList.remove("hidden");
+      });
+    });
+  </script>
+
+</body>
+</html>

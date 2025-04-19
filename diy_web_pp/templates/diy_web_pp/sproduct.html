@@ -1,0 +1,360 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        
+             <style>
+            footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+        </style>
+        
+        <section id="header">
+          <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+          {% include 'diy_web_pp/base.html' %}
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <!-- <i id="bar" class="fas fa-outdent"></i> -->
+            </div>
+        </section>
+
+        <section id="first">
+            <section id="prodetails" class="section-p1">
+                <div class="single-pro-image">
+                    <img src="n1.jpg" width="100%" id="MainImg" alt="">
+                    <div class="small-img-group">
+                        <div class="small-img-col">
+                            <img src="img/products/f1.jpg" width="100%" class="small-img" alt="">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="img/products/f2.jpg" width="100%" class="small-img" alt="">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="img/products/f3.jpg" width="100%" class="small-img" alt="">
+                        </div>
+                        <div class="small-img-col">
+                            <img src="img/products/f4.jpg" width="100%" class="small-img" alt="">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="single-pro-details">
+                    <h6>Home / T-Shirt</h6>
+                    <h4>Men's Fashion T Shirt</h4>
+                    <h2>Rs. 4800</h2>
+                    <select>
+                        <option>Select Size</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                        <option>Small</option>
+                        <option>Large</option>
+                    </select>
+                    <input type="number" value="1">
+                    <button class="normal normal" onclick="addToCart()">Add To Cart</button>
+                    <h4>Product Details</h4>
+                    <span id="product-brand">The Gildan Ultra Cotton T-shirt is made from a substantial 6.0 oz. per
+                        sq. yd. fabric constructed from 100% cotton, this classic fit preshrunk 
+                        jersey knit provides unmatched comfort with each wear. Featuring a 
+                        taped neck and shoulder , and a seamless double-needle collar, and 
+                        available in a range of colors, it offers it all in the ultimate head-
+                        turning package.
+                    </span>
+                    <p class="product-description">Product description will be dynamically loaded here.</p>
+                </div>
+            </section>
+    
+            
+
+       
+        <footer>
+            <div class="footer-container">
+              <div class="footer-section contact-info">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+        
+              <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms & Conditions</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="#">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+        
+              
+            </div>
+          </footer>
+        
+
+        <script>
+            // Function to load product details
+            function loadProductDetails() {
+                // Find all product detail keys in sessionStorage
+                const productKeys = Object.keys(sessionStorage)
+                    .filter(key => key.startsWith('currentProductDetails_'));
+                
+                if (productKeys.length > 0) {
+                    // Get the most recently added product (last in the array)
+                    const lastProductKey = productKeys[productKeys.length - 1];
+                    const productDetails = JSON.parse(sessionStorage.getItem(lastProductKey) || '{}');
+
+                    // Update page elements if details exist
+                    if (Object.keys(productDetails).length > 0) {
+                        // Update product image
+                        const mainImage = document.getElementById('MainImg');
+                        if (mainImage && productDetails.image) {
+                            mainImage.src = productDetails.image;
+                        }
+
+                        // Update small images to match main image
+                        const smallImgs = document.getElementsByClassName('small-img');
+                        if (smallImgs.length > 0) {
+                            for (let i = 0; i < smallImgs.length; i++) {
+                                smallImgs[i].src = productDetails.image;
+                                smallImgs[i].onclick = function() {
+                                    mainImage.src = this.src;
+                                };
+                            }
+                        }
+
+                        // Update product name
+                        const productName = document.getElementById('product-name');
+                        if (productName && productDetails.name) {
+                            productName.textContent = productDetails.name;
+                        }
+
+                        // Update product price
+                        const productPrice = document.getElementById('product-price');
+                        if (productPrice && productDetails.price) {
+                            productPrice.textContent = productDetails.price;
+                        }
+
+                        // Update product brand
+                        const productBrand = document.getElementById('product-brand');
+                        if (productBrand) {
+                            productBrand.textContent = productDetails.brand || 'Brand';
+                        }
+                    }
+                }
+            }
+
+            function addToCart() {
+    const productDetails = {
+        name: document.getElementById('product-name')?.textContent || 'Unnamed Product',
+        price: document.getElementById('product-price')?.textContent || 'Price not available',
+        brand: document.getElementById('product-brand')?.textContent || 'Unknown Brand',
+        image: document.getElementById('MainImg')?.src || ''
+    };
+
+    // Retrieve the existing cart or initialize an empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add the new product to the cart
+    cart.push(productDetails);
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    alert('Product added to cart!');
+}
+
+            // Load details when page loads
+            document.addEventListener('DOMContentLoaded', loadProductDetails);
+        </script>
+
+        <script src="index.js"></script>
+    </body>
+
+</html>

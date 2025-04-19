@@ -1,0 +1,398 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DIYshop</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+
+        <style>
+            footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+           
+        </style>
+    </head>
+
+    <body>
+        <section id="header">
+            <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+            {% include 'diy_web_pp/base.html' %}
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <!-- <i id="bar" class="fas fa-outdent"></i> -->
+            </div>
+            <div class="select"></div>
+        </section>
+        <section id="hero">
+            <h2>Fashion Your Way</h2>
+            <h1>Threads of Creativity</h1>
+            <p>Personalized Looks, Limitless Vibes</p>
+        </section>
+
+        <section id="feature" class="section-p1">
+            <div class="fe-box">
+                <img src="img/features/f1.png" alt="">
+                <h6 class="first">Free Shipping</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f2.png" alt="">
+                <h6 class="second">Online Order</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f3.png" alt="">
+                <h6 class="third">Save Money</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f4.png" alt="">
+                <h6 class="fourth">Promotions</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f5.png" alt="">
+                <h6 class="fifth">Happy Sell</h6>
+            </div>
+            <div class="fe-box">
+                <img src="img/features/f6.png" alt="">
+                <h6 class="sixth">F24/7 Support</h6>
+            </div>
+        </section>
+
+       
+
+        <section id="banner" class="section-m1">
+            <h4>Made by You, Worn by You</h4>
+            <h3>Customize <span>Your Clothes</span> -With Love</h3>
+            <a href="shop.html"><button class="normal">Explore More</button></a>
+        </section>
+
+        <section id="product1" class="section-p1">
+            <h2>New Arrivals</h2>
+            <p>Summer Collection new Modern Design</p>
+            <div class="pro-container">
+                <div class="pro" data-product-id="21" onclick="viewProductDetails(this);">
+                    <img src="https://m.media-amazon.com/images/I/81QwZN8tIAL._SX679_.jpg"alt="">
+
+                    <div class="des">
+                        <span>Vanheusen</span>
+                        <h5>Plain Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 1299</h4>
+                    </div>
+                    <a href="cart.html"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="22" onclick="viewProductDetails(this);">
+                    <img src="https://imagescdn.thecollective.in/img/app/product/8/860383-10156619.jpg?w=500&auto=format" alt="">
+
+                    <div class="des">
+                        <span>Arrow</span>
+                        <h5>Checked Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 1699</h4>
+                    </div>
+                    <a href="cart.html"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro">
+                    <img src="https://m.media-amazon.com/images/I/51sSJUx8mwL._SY879_.jpg" alt="">
+
+                    <div class="des" data-product-id="23" onclick="viewProductDetails(this);">
+                        <span>Arrow</span>
+                        <h5>White Plain Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 1899</h4>
+                    </div>
+                    <a href="cart.html"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="21" onclick="viewProductDetails(this);">
+                    <img src="https://res.cloudinary.com/dzdgpwtox/image/upload/w_900,c_scale/l_final_designs:seller_design_460538:f_20230205175115.png,w_360,h_460,c_fit,x_0,y_-60/oversized_tees/black_f.jpg"alt="">
+
+                    <div class="des">
+                        <span>Ordinary</span>
+                        <h5>Printed Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 1299</h4>
+                    </div>
+                    <a href="cart.html"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+               
+               
+             
+        </section>
+
+        <section id="sm-banner" class="section-p1">
+            <div class="banner-box">
+                <h3>Crazy Deals</h3>
+                <h2><b>Buy 1 Get 1 Free</b></h2>
+                <span>The best classic dress is on sale at DIYSHOP</span>
+                <a href="shop.html"><button class="white">Learn more</button></a>
+            </div>
+            <div class="banner-box banner-box2">
+                <h3>Summer</h3>
+                <h2><b>Upcoming Season</b></h2>
+                <span>The best classic dress is on sale at DIYSHOP</span>
+                <a href="shop.html"><button class="white">Collection</button></a>
+            </div>
+        </section>
+
+        <section id="banner3">
+            <div class="banner-box box1">
+                <h3>SEASONAL SALES</h3>
+                <h3>Winter Collection - 50% OFF</h3>
+            </div>
+            <div class="banner-box box2">
+                <h3>NEW FOOTWEAR COLLECTION</h3>
+                <h3>Summer 2023</h3>
+            </div>
+            <div class="banner-box box3">
+                <h3>T-SHIRTS</h3>
+                <h3>New Trendy Prints</h3>
+            </div>
+        </section>
+
+        <div id="product-details" style="display: none;">
+            <h1 id="product-name"></h1>
+            <img id="product-image" src="" alt="Product Image">
+            <p id="product-price"></p>
+            <p id="product-brand"></p>
+        </div>
+
+        <footer>
+            <div class="footer-container">
+              <div class="footer-section contact-info">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+        
+              <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms & Conditions</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="#">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+              </div>
+        
+              <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+            </div>
+            
+          </footer>
+        
+
+        <!-- <div class="copyright">
+            <p> 2023, Anshumohan Acharya</p>
+        </div> -->
+        <!-- Scripts -->
+        <script src="{% static 'diy_web_pp/js/script.js' %}" defer></script>
+    </body>
+
+</html>

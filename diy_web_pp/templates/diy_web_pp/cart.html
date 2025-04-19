@@ -1,0 +1,644 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DIYshop</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+        <script src="{% static 'diy_web_pp/js/cart.js' %}"></script>
+
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <style>
+           /* Color Variables */
+           :root {
+                --primary-color: #8a2be2;
+                --secondary-color: #ff6ea8;
+                --text-color: #333;
+                --background-color: #f4f4f4;
+                --glass-bg: rgba(255, 255, 255, 0.25);
+                --glass-border: rgba(255, 255, 255, 0.18);
+            }
+
+            /* Global Styles */
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: linear-gradient(45deg, rgba(138, 43, 226, 0.1), rgba(255, 110, 168, 0.1));
+                color: var(--text-color);
+            }
+
+            
+
+            /* Cart Section */
+            #cart {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                padding: 40px;
+            }
+
+            #cart table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            #cart table thead {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+            #cart table th, #cart table td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            #cart table tr:hover {
+                background-color: rgba(138, 43, 226, 0.05);
+            }
+
+            #cart table img {
+                max-width: 100px;
+                height: auto;
+            }
+
+            #cart table input {
+                width: 70px;
+                padding: 5px;
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+            }
+
+            /* Cart Add Section */
+            #cart-add {
+                max-width: 1200px;
+                margin: 30px auto;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #coupon, #subtotal {
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                padding: 30px;
+                width: 45%;
+            }
+
+            #coupon input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+            }
+
+            #coupon button {
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+
+            #coupon button:hover {
+                transform: scale(1.05);
+            }
+
+            #subtotal table {
+                width: 100%;
+            }
+
+            #subtotal table tr {
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            #subtotal table td {
+                padding: 10px 0;
+            }
+
+            #subtotal table tr:last-child {
+                font-weight: bold;
+                color: var(--primary-color);
+            }
+
+            /* Billing Form Styling */
+            #billing-form {
+                background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,240,240,0.9));
+                border-radius: 15px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+                padding: 40px;
+                max-width: 600px;
+                margin: 30px auto;
+                transition: all 0.3s ease;
+            }
+
+            #billing-form:hover {
+                box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 8px 20px rgba(0,0,0,0.08);
+                transform: translateY(-5px);
+            }
+
+            #billing-form h2 {
+                text-align: center;
+                color: var(--primary-color);
+                margin-bottom: 30px;
+                font-size: 2em;
+                letter-spacing: 1px;
+                position: relative;
+            }
+
+            #billing-form h2::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                border-radius: 2px;
+            }
+
+            #billing-form .form-group {
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+            #billing-form label {
+                display: block;
+                margin-bottom: 8px;
+                color: #333;
+                font-weight: 600;
+                transition: color 0.3s ease;
+            }
+
+            #billing-form input, 
+            #billing-form select {
+                width: 100%;
+                padding: 12px 15px;
+                border: 2px solid transparent;
+                border-radius: 8px;
+                background-color: rgba(255,255,255,0.8);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                transition: all 0.3s ease;
+                font-size: 16px;
+            }
+
+            #billing-form input:focus, 
+            #billing-form select:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+                outline: none;
+            }
+
+            #billing-form input:hover, 
+            #billing-form select:hover {
+                background-color: rgba(255,255,255,1);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            }
+
+            #billing-form .form-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #billing-form .form-row .form-group {
+                width: 48%;
+            }
+
+            #billing-form .submit-btn {
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: white;
+                border: none;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-size: 1.1em;
+                cursor: pointer;
+                transition: all 0.4s ease;
+                width: 100%;
+                margin-top: 20px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+            }
+
+            #billing-form .submit-btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+            }
+
+            #billing-form .submit-btn:active {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                #billing-form .form-row {
+                    flex-direction: column;
+                }
+
+                #billing-form .form-row .form-group {
+                    width: 100%;
+                }
+            }
+
+            footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+        </style>
+        <section id="header">
+            <a href="home.html"><img class="logo" src="DIYshop.jpg" alt=""></a>
+            {% include 'diy_web_pp/base.html' %}
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <!-- <i id="bar" class="fas fa-outdent"></i> -->
+            </div>
+        </section>
+
+        <section id="page-header" class="about-header">
+            <!-- <h1>#cart</h1> -->
+            <h1><b>Add your coupon code & SAVE upto 70%</b></h1>
+        </section>
+
+        <section id="cart" class="section-p1">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Remove</td>
+                        <td>Image</td>
+                        <td>Product</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Subtotal</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'remove_cart_item' item.id %}">
+                                <i class="far fa-times-circle"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <img src="{% static item.product.image_path %}" alt="">
+                        </td>
+                        <td>{{ item.product.product_name }}</td>
+                        <td>Rs. {{ item.product.price }}</td>
+                        <td>
+                            <form method="post" action="{% url 'update_cart_quantity' item.id %}">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="10" onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td>Rs. {{ item.total_price }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6">Your cart is empty.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+            <div style="text-align:right; padding: 20px;">
+                <h3>Total: Rs. {{ total }}</h3>
+            </div>
+        </section>
+        
+
+        <section id="cart-add" class="section-p1">
+            <div id="coupon">
+                <h3>Apply Coupon</h3>
+                <input type="text" placeholder="Enter Your Coupon">
+                <button class="normal">Apply</button>
+            </div>
+            <div id="subtotal">
+                <h3>Cart Total</h3>
+                <table>
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td><span id="cart_sub">Rs. {{ total }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td><span id="shipping">Rs. 50</span></td>  <!-- fixed or calculated shipping -->
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>
+                            <span id="total">
+                                Rs. {{ total|add:"50" }}
+                            </span>
+                        </strong></td>
+                    </tr>
+                </table>
+            
+                {% if cart_items %}
+                    <a href="#payment_gateway">
+                        <button class="normal">Proceed to checkout</button>
+                    </a>
+                {% else %}
+                    <button class="normal" disabled>Cart is empty</button>
+                {% endif %}
+            </div>
+            
+        </section>
+
+        <section id="payment_gateway">
+            <div class="container">
+                <form method="POST" action="{% url 'checkout' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="title">Billing Address</h3>
+        
+                            <div class="inputBox">
+                                <span>Full name : </span>
+                                <input type="text" name="full_name" placeholder="Anshumohan Acharya" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>Email :</span>
+                                <input type="email" name="email" placeholder="example@example.com" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>Address : </span>
+                                <input type="text" name="address" placeholder="Room-Street-Locality" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>City :</span>
+                                <input type="text" name="city" placeholder="Kolkata" required>
+                            </div>
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <span>State :</span>
+                                    <input type="text" name="state" placeholder="West Bengal" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Zip Code :</span>
+                                    <input type="text" name="zip_code" placeholder="123 456" required>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col">
+                            <h3 class="title">Payment</h3>
+        
+                            <div class="inputBox">
+                                <span>Cards Accepted :</span>
+                                <img src="{% static 'img/pay/pay.png' %}" alt="">
+                            </div>
+                            <div class="inputBox">
+                                <span>Name on Card: </span>
+                                <input type="text" name="card_name" placeholder="Mr. Anshumohan Acharya" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>Credit Card number :</span>
+                                <input type="text" name="card_number" placeholder="1111-2222-3333-4444" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>Expiry Month : </span>
+                                <input type="text" name="expiry_month" placeholder="January" required>
+                            </div>
+                            <div class="inputBox">
+                                <span>City :</span>
+                                <input type="text" name="payment_city" placeholder="Kolkata" required>
+                            </div>
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <span>Expiry Year :</span>
+                                    <input type="number" name="expiry_year" placeholder="2022" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>CVV :</span>
+                                    <input type="text" name="cvv" placeholder="123" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="total_amount" value="{{ total|add:'50' }}">
+                    <input type="submit" value="Proceed To Checkout" class="submit-btn">
+                </form>
+            </div>
+        </section>
+        
+
+        
+
+    
+        <footer>
+            <div class="footer-container">
+              <div class="footer-section contact-info">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+        
+              <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms & Conditions</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="#">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+              </div>
+        
+              <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+            </div>
+          </footer>
+        
+
+        <!-- <div class="copyright">
+            <p>© 2023, Anshumohan Acharya</p>
+        </div> -->
+
+        <script src="index.js"></script>
+    </body>
+
+</html>

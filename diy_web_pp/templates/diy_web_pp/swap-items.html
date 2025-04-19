@@ -1,0 +1,603 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap Items - DIY Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+    <!-- CSS Stylessheets -->
+    <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: rgba(138, 43, 226, 0.85);
+            --secondary: rgba(233, 30, 99, 0.85);
+            --accent: rgba(255, 64, 129, 0.85);
+            --text: #2a2a2a;
+            --bg-gradient-1: rgba(147, 86, 220, 0.1);
+            --bg-gradient-2: rgba(255, 110, 168, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --card-shadow: rgba(31, 38, 135, 0.15);
+            --purple-text: #B23CFD;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: 
+                linear-gradient(45deg, var(--bg-gradient-1), var(--bg-gradient-2)),
+                url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover fixed;
+            color: var(--text);
+            padding: 20px;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: var(--text);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Swap Form Section */
+        .swap-form {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 80px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: formFloat 1s ease-out;
+        }
+
+        .swap-form h2 {
+            font-size: 2em;
+            color: var(--purple-text);
+            margin-bottom: 40px;
+            text-align: left;
+            font-weight: 500;
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            text-shadow: none;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: var(--text);
+            font-size: 1em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn.preview {
+            background: linear-gradient(135deg, #42a5f5, #2196F3);
+        }
+
+        .btn.swap {
+            background: linear-gradient(135deg, #66bb6a, #43a047);
+        }
+
+        /* Preview Box */
+        .preview-box {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .preview-box img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .preview-box h3 {
+            margin-top: 15px;
+            color: var(--text);
+            font-size: 1.2em;
+        }
+
+        .preview-box p {
+            color: var(--text);
+            margin: 8px 0;
+            font-size: 1em;
+        }
+
+        /* Notifications */
+        .notifications-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .notifications-section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+
+        .notification-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.2);
+        }
+
+        .notification-box .chat-btn {
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        /* Alert Dialog */
+        .alert-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            width: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        @keyframes formFloat {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #001f3f;
+            color: #fff;
+            padding: 50px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            margin: 10px 0;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ccc;
+        }
+
+        .newsletter {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #fff;
+            color: #333;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background: #0052a3;
+        }
+
+        .footer-section i {
+            margin-right: 10px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="user-id" value="{{ user.id }}">
+    <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+
+    <section id="header">
+        <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+        {% include 'diy_web_pp/base.html' %}
+        <div id="mobile">
+            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <div class="container">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <!-- <i id="bar" class="fas fa-outdent"></i> -->
+        </div>
+    </section>
+    <header>
+        <h1>Swap Your Items</h1>
+    </header>
+
+    <section class="swap-form">
+        <h2>List Your Item for Swap</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div style="color: green; font-weight: bold;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+<form action="{% url 'swap_item' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <input type="text" name="name" placeholder="Product Name" required>
+    </div>
+
+    <div class="form-group">
+        <input type="file" name="image" accept="image/*" required>
+    </div>
+
+    <div class="form-group">
+        <textarea name="description" placeholder="Description" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <input type="number" name="price" placeholder="Enter your price" required>
+    </div>
+
+    <div class="form-group">
+        <select name="condition" required>
+            <option value="">Select Condition</option>
+            <option value="New">New</option>
+            <option value="Like New">Like New</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Used">Used</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn swap">
+        <i class="fas fa-exchange-alt"></i> Swap Now
+    </button>
+</form>
+
+        <div id="item-preview" class="preview-box"></div>
+    </section>
+
+    <button class="btn notifications-btn" onclick="loadNotifications()">
+        <i class="fas fa-bell"></i> View Notifications
+    </button>
+    
+    <section id="notifications" class="notifications-section"></section>
+
+    <script>
+        function previewItem() {
+            const imageInput = document.getElementById('product-image');
+            const name = document.getElementById('product-name').value;
+            const description = document.getElementById('product-description').value;
+            const condition = document.getElementById('condition').value;
+            const previewBox = document.getElementById('item-preview');
+
+            if (!name || !description || !condition) {
+                alert('Please fill in all fields before previewing');
+                return;
+            }
+
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewBox.innerHTML = `
+                        <img src="${e.target.result}" alt="Item Preview">
+                        <h3>${name}</h3>
+                        <p><strong>Condition:</strong> ${condition}</p>
+                        <p><strong>Description:</strong> ${description}</p>
+                    `;
+                    previewBox.style.display = 'block';
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                alert('Please select an image first');
+            }
+        }
+
+        document.getElementById('swapForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('product-name').value;
+            const description = document.getElementById('product-description').value;
+            const condition = document.getElementById('condition').value;
+            const imageInput = document.getElementById('product-image');
+
+            if (!name || !description || !condition || !imageInput.files[0]) {
+                alert('Please fill in all fields and select an image');
+                return;
+            }
+
+            const dialog = document.createElement('div');
+            dialog.className = 'alert-dialog';
+            dialog.innerHTML = `
+                <div class="title">127.0.0.1:5501 says</div>
+                <div class="message">Your swap request has been sent! Someone will review your item and may reach out for a swap.</div>
+                <div class="button-container">
+                    <button onclick="this.closest('.alert-dialog').remove();document.querySelector('.overlay').remove();">OK</button>
+                </div>
+            `;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(dialog);
+            
+            this.reset();
+            document.getElementById('item-preview').innerHTML = '';
+            document.getElementById('item-preview').style.display = 'none';
+        });
+
+        function loadNotifications() {
+            const userId = document.getElementById('user-id').value;
+        
+            fetch(`/swap_notification/?user_id=${userId}`)
+                .then(response => response.json())
+                .then(mockData => {
+                    const notificationsContainer = document.getElementById('notifications');
+                    notificationsContainer.innerHTML = `
+                        <h2>Swap Requests</h2>
+                        ${mockData.map(request => `
+                            <div class="notification-box">
+                                <div class="user-info">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>${request.username} wants to swap:</span>
+                                </div>
+                                <div class="item-info">
+                                    <p><i class="fas fa-tshirt"></i> Item: ${request.product_name}</p>
+                                    <p><i class="fas fa-star"></i> Condition: ${request.product_condition}</p>
+                                </div>
+                                <button class="btn chat-btn" data-swap-id="${request.swap_id}">
+                                    <i class="fas fa-comments"></i> Chat
+                                </button>
+                                ${!request.is_accepted ? `
+                                    <form method="POST" action="/accept_swap/" class="accept-form">
+                                        <input type="hidden" name="swap_id" value="${request.swap_id}">
+                                        <button type="submit" class="btn accept-btn">Accept</button>
+                                    </form>
+                                ` : `
+                                    <span class="accepted-label">Accepted</span>
+                                `}
+                            </div>
+                        `).join('')}
+                    `;
+        
+                    const chatButtons = notificationsContainer.querySelectorAll('.chat-btn');
+                    chatButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const swapId = button.getAttribute('data-swap-id');
+                            window.location.href = `/chat/${swapId}`;
+                        });
+                    });
+                });
+        }
+        
+        
+        
+    </script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                    <li><a href="#">Sign In</a></li>
+                    <li><a href="#">View Cart</a></li>
+                    <li><a href="#">My Wishlist</a></li>
+                    <li><a href="#">Track My Order</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,443 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DIYshop</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+        <style>
+              footer {
+      background: rgba(0, 28, 57, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 50px 0;
+      margin-top: 80px;
+      color: white;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-section {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95em;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-section.contact-info p {
+      margin-bottom: 12px;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section.contact-info i {
+      color: #2196F3;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .newsletter-form button {
+      padding: 12px 25px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .newsletter-form button:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+        </style>
+    </head>
+
+    <body>
+        <section id="header">
+          <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+          {% include 'diy_web_pp/base.html' %}
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <!-- <i id="bar" class="fas fa-outdent"></i> -->
+            </div>
+            <div class="select"></div>
+        </section>
+
+        <!-- <section id="page-header">
+            <h3><B>STAYHOME</B></h3>
+            <p>Save more with coupons & upto 70% off!<p>
+        </section> -->
+
+        <section id="product1" class="section-p1">
+            <div class="pro-container">
+                <div class="pro" data-product-id="9" onclick="viewProductDetails(this);">
+                    <img src="f1.jpg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Cartoon Astronaut T-Shirts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="10" onclick="viewProductDetails(this);">
+                    <img src="f3 - Copy.jpg" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Green leaves and Floral T-Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="11" onclick="viewProductDetails(this);">
+                    <img src="https://rukminim2.flixcart.com/image/850/1000/kltryq80/t-shirt/o/8/r/xl-wpt-girls-shoppie-original-imagyv2gk5f6nngz.jpeg?q=20&crop=false" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Rose Floral T-Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="12" onclick="viewProductDetails(this);">
+                    <img src="f4 - Copy - Copy.jpg" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Pink Floral T-Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="13" onclick="viewProductDetails(this);">
+                    <img src="f5 - Copy.jpg" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Floral T-Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="14" onclick="viewProductDetails(this);">
+                    <img src="f7 - Copy - Copy.jpg" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>White Plain T-Shirts</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="15" onclick="viewProductDetails(this);">
+                    <img src="https://www.sheknows.com/wp-content/uploads/2023/09/Screen-Shot-2023-09-20-at-9.39.39-AM.png?w=800" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Creme color Palazzo</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+                <div class="pro" data-product-id="16" onclick="viewProductDetails(this);">
+                    <img src="https://i.pinimg.com/736x/e6/ec/99/e6ec99ff8dc3dfc73bcb387c8c0c568e.jpg" alt="">
+
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Girls Tops</h5>
+
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Rs. 5600</h4>
+                    </div>
+                    <a href="cart.html" onclick="addToCart(event, this);"><i class="fa-sharp fa-solid fa-cart-shopping cart"></i></a>
+                </div>
+        </section>
+
+        <section id="pagination" class="section-p1">
+            <a href="shop.html">1</a>
+            <a href="second_shop.html">2</a>
+            <a href="second_shop.html"><i class="fa-solid fa-arrow-right"></i></a>
+        </section>
+        
+        
+
+        <footer>
+            <div class="footer-container">
+              <div class="footer-section contact-info">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Royal Street St, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9900000000</p>
+                <p><i class="fas fa-envelope"></i> info@diyshop.com</p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+        
+              <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms & Conditions</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="#">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+        
+              
+            </div>
+          </footer>
+        
+
+        <!-- <div class="copyright">
+            <p> 2023, Anshumohan Acharya</p>
+        </div> -->
+
+        <script>
+            // Function to view product details
+            function viewProductDetails(productElement) {
+                console.log('viewProductDetails called with:', productElement);
+                console.log('viewProductDetails function called'); 
+                // Prevent event if clicking on cart icon
+                if (window.event.target.classList.contains('cart')) return;
+
+                // Get product details
+                const productId = productElement.getAttribute('data-product-id');
+                const productName = productElement.querySelector('h5').textContent;
+                const productPrice = productElement.querySelector('h4').textContent;
+                const productImage = productElement.querySelector('img').src;
+                const productBrand = productElement.querySelector('span').textContent;
+
+                // Create a unique session storage key for this specific product
+                const productKey = `currentProductDetails_${productId}`;
+
+                // Store product details in sessionStorage instead of localStorage
+                sessionStorage.clear(); // Clear previous product details
+                sessionStorage.setItem(productKey, JSON.stringify({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    brand: productBrand
+                }));
+
+                // Redirect to product details page
+                window.location.href = 'sproduct.html';
+            }
+
+            // Function to add to cart
+            function addToCart(event, productElement) {
+                event.stopPropagation();
+                
+                // Get product details
+                const productId = productElement.closest('.pro').getAttribute('data-product-id');
+                const productName = productElement.closest('.pro').querySelector('h5').textContent;
+                const productPrice = productElement.closest('.pro').querySelector('h4').textContent;
+
+                // Add to cart logic (you can expand this)
+                alert(`Added ${productName} to cart`);
+            }
+        </script>
+        <script src="index.js"></script>
+    </body>
+
+</html>

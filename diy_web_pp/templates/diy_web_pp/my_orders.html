@@ -1,0 +1,167 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY shop - Authentication</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+    <!-- CSS Stylessheets -->
+    <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    <section id="header">
+        {% include 'diy_web_pp/base.html' %}
+    </section>
+
+    <div class="order-container">
+        <h2 class="my-orders-title">My Orders</h2>
+    
+        {% if orders %}
+              {% for item in orders %}
+              <div class="order-card-horizontal">
+                  <div class="order-image">
+                      <img src="{{ item.image_path }}" alt="{{ item.product_name }}">
+                  </div>
+                  <div class="order-details">
+                      <h3>{{ item.brand_name }} - {{ item.product_name }}</h3>
+                      <p><strong>Price:</strong> ₹{{ item.price }}</p>
+                      <p><strong>Rating:</strong> ⭐ {{ item.rating }}</p>
+                      <p><strong>Ordered on:</strong> {{ item.created_at }}</p>
+                      <p><strong>Total Amount:</strong> ₹{{ item.total_amount }}</p>
+                  </div>
+              </div>
+          {% endfor %}
+    
+        {% else %}
+            <p>You haven't placed any orders yet.</p>
+        {% endif %}
+    </div>
+
+<style>
+    @media (max-width: 768px) {
+        header h1 {
+          font-size: 2em;
+        }
+        
+        .hero-section h2 {
+          font-size: 1.8em;
+        }
+  
+        .feature-card {
+          backdrop-filter: blur(8px);
+        }
+  
+        .sell-form {
+          padding: 30px;
+          border-radius: 30px;
+        }
+  
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+  
+        .sell-form h2 {
+          font-size: 2.5em;
+        }
+  
+        .input-label {
+          font-size: 0.9em;
+        }
+  
+        input, textarea {
+          padding: 20px;
+          font-size: 1em;
+        }
+  
+        .file-input-label {
+          padding: 20px;
+          font-size: 1em;
+        }
+  
+        .submit {
+          padding: 20px;
+          font-size: 1.1em;
+        }
+      }
+      .container {
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .order-container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .my-orders-title {
+        font-size: 28px;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .order-card-horizontal {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .order-card-horizontal:hover {
+        transform: translateY(-4px);
+    }
+
+    .order-image img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .order-details h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #333;
+    }
+
+    .order-details p {
+        margin: 5px 0;
+        color: #555;
+        font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .order-card-horizontal {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .order-image img {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .order-details {
+            padding-top: 10px;
+        }
+    }
+</style>
+</head>
+</html>

@@ -1,0 +1,837 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Design Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+        <!-- CSS Stylessheets -->
+        <link rel="stylesheet" href="{% static 'diy_web_pp/css/styles.css' %}">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/8a324bbd32.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #B23CFD;
+            --secondary: #FF6EA8;
+            --text-dark: #2a2a2a;
+            --bg-light: #F8F9FA;
+            --bg-gradient-1: rgba(147, 86, 220, 0.1);
+            --bg-gradient-2: rgba(255, 110, 168, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: 
+                linear-gradient(45deg, var(--bg-gradient-1), var(--bg-gradient-2)),
+                url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          
+            z-index: -1;
+        }
+
+        .header {
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 2.2em;
+            font-weight: 600;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+
+        .design-title {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        select, input[type="color"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            padding-right: 45px;
+        }
+
+        input[type="color"] {
+            height: 45px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        select:hover, input[type="color"]:hover {
+            border-color: var(--primary);
+        }
+
+        select:focus, input[type="color"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(178, 60, 253, 0.1);
+        }
+
+        .preview-section {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(178, 60, 253, 0.2);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .clothing-preview {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .clothing-preview.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .clothing-item.front,
+        .clothing-item.back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clothing-item.back {
+            transform: rotateY(180deg);
+        }
+
+        .clothing-item > div {
+            background: currentColor;
+            transition: all 0.3s ease;
+        }
+
+        /* Clothing Shapes */
+        /* T-Shirt */
+        .tshirt-body {
+            width: 200px;
+            height: 250px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .tshirt-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: currentColor;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .tshirt-sleeve {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            top: 0;
+            background: currentColor;
+        }
+
+        .tshirt-sleeve.left {
+            left: -40px;
+            transform: rotate(15deg);
+        }
+
+        .tshirt-sleeve.right {
+            right: -40px;
+            transform: rotate(-15deg);
+        }
+
+        /* Dress */
+        .dress {
+            width: 180px;
+            height: 300px;
+            margin: 0 auto;
+            background: currentColor;
+            border-radius: 100px 100px 0 0;
+            position: relative;
+        }
+
+        .dress::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -20px;
+            right: -20px;
+            height: 120px;
+            background: currentColor;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Skirt */
+        .skirt {
+            width: 180px;
+            height: 250px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .skirt-top {
+            width: 100%;
+            height: 50px;
+            background: currentColor;
+            border-radius: 25px 25px 0 0;
+            position: relative;
+        }
+
+        .skirt-bottom {
+            width: 100%;
+            height: 200px;
+            background: currentColor;
+            position: absolute;
+            bottom: 0;
+            clip-path: polygon(0 0, 100% 0, 150% 100%, -50% 100%);
+            border-radius: 0 0 10px 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Pants */
+        .pants {
+            width: 160px;
+            height: 280px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .pants-waist {
+            width: 100%;
+            height: 40px;
+            background: currentColor;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .pant-leg {
+            position: absolute;
+            width: 70px;
+            height: 240px;
+            background: currentColor;
+            bottom: 0;
+            border-radius: 10px;
+        }
+
+        .pant-leg.left {
+            left: 0;
+            transform: skew(-5deg);
+        }
+
+        .pant-leg.right {
+            right: 0;
+            transform: skew(5deg);
+        }
+
+        /* Blouse */
+        .blouse {
+            width: 200px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .blouse-body {
+            width: 100%;
+            height: 200px;
+            background: currentColor;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .blouse-sleeve {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            top: 0;
+            background: currentColor;
+        }
+
+        .blouse-sleeve.left {
+            left: -40px;
+            transform: rotate(15deg);
+        }
+
+        .blouse-sleeve.right {
+            right: -40px;
+            transform: rotate(-15deg);
+        }
+
+        /* Sweater */
+        .sweater {
+            width: 200px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sweater-body {
+            width: 100%;
+            height: 200px;
+            background: currentColor;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .sweater-sleeve {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            top: 0;
+            background: currentColor;
+        }
+
+        .sweater-sleeve.left {
+            left: -40px;
+            transform: rotate(15deg);
+        }
+
+        .sweater-sleeve.right {
+            right: -40px;
+            transform: rotate(-15deg);
+        }
+
+        /* Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        .clothing-preview {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Save Design Button */
+        .btn.save-design {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(178, 60, 253, 0.3);
+            width: 100%;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn.save-design::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .btn.save-design:hover::before {
+            left: 100%;
+        }
+
+        .btn.save-design:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(178, 60, 253, 0.4);
+        }
+
+        /* Alert Dialog Styles */
+        .alert-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            width: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+        }
+
+        .alert-dialog .title {
+            font-size: 1.5em;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .alert-dialog .message {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .alert-dialog .button-container button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .alert-dialog .button-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(178, 60, 253, 0.3);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Hover Effects */
+        .clothing-item:hover {
+            transform: scale(1.02);
+        }
+
+        .skirt:hover .skirt-bottom {
+            clip-path: polygon(0 0, 100% 0, 130% 100%, -30% 100%);
+        }
+
+        .pants:hover .pant-leg.left {
+            transform: skew(-8deg);
+        }
+
+        .pants:hover .pant-leg.right {
+            transform: skew(8deg);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #001f3f;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ccc;
+        }
+
+        .newsletter {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="{% url 'home' %}"><img class="logo" src="DIYshop.jpg" alt=""></a>
+        {% include 'diy_web_pp/base.html' %}
+        <div id="mobile">
+            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <div class="container">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <!-- <i id="bar" class="fas fa-outdent"></i> -->
+        </div>
+    </section>
+    <header class="header">
+        <h1>DIY Design Studio</h1>
+    </header>
+
+    <div class="container">
+        <h2 class="design-title">Customize Your Clothing</h2>
+        
+        <div class="design-grid">
+            <div class="customize-section">
+                <div class="form-group">
+                    <label for="clothing-type">Clothing Type:</label>
+                    <select id="clothing-type">
+                        <option value="tshirt">T-Shirt</option>
+                        <option value="dress">Dress</option>
+                        <option value="skirt">Skirt</option>
+                        <option value="pants">Pants</option>
+                        <option value="blouse">Blouse</option>
+                        <option value="sweater">Sweater</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="color">Color:</label>
+                    <input type="color" id="color" value="#B87E8A">
+                </div>
+
+                <div class="form-group">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                        <option value="xs">X-Small</option>
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                        <option value="xl">X-Large</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="material">Material:</label>
+                    <select id="material">
+                        <option value="cotton" selected>Cotton</option>
+                        <option value="polyester">Polyester</option>
+                        <option value="linen">Linen</option>
+                        <option value="silk">Silk</option>
+                        <option value="wool">Wool</option>
+                        <option value="denim">Denim</option>
+                    </select>
+                </div>
+
+                <button class="btn save-design">
+                    <i class="fas fa-save"></i> Save Design
+                </button>
+            </div>
+
+            <div class="preview-section">
+                <h3>Preview</h3>
+                <div class="clothing-preview">
+                    <div class="clothing-item front">
+                        <div class="tshirt-body">
+                            <div class="tshirt-sleeve left"></div>
+                            <div class="tshirt-sleeve right"></div>
+                        </div>
+                    </div>
+                    <div class="clothing-item back">
+                        <div class="tshirt-body">
+                            <div class="tshirt-sleeve left"></div>
+                            <div class="tshirt-sleeve right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>We Accept</h3>
+                <ul>
+                <div class="payment-icons">
+                <img src="icons8-google-pay-48.png" alt="Google Pay" />
+                <img src="icons8-paypal-48.png" alt="PayPal" />
+                <!-- <img src="/images/visa.png" alt="Visa" />
+                <img src="/images/mastercard.png" alt="MasterCard" /> -->
+                </ul>
+                <p> payments with SSL encryption. Your data is protected.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const clothingType = document.getElementById('clothing-type');
+        const colorPicker = document.getElementById('color');
+        const previewSection = document.querySelector('.preview-section');
+        const clothingPreview = document.querySelector('.clothing-preview');
+
+        function updateClothingType(type) {
+            let frontHtml = '';
+            let backHtml = '';
+            switch(type) {
+                case 'tshirt':
+                    frontHtml = `
+                        <div class="tshirt-body">
+                            <div class="tshirt-sleeve left"></div>
+                            <div class="tshirt-sleeve right"></div>
+                        </div>
+                    `;
+                    backHtml = frontHtml;
+                    break;
+                case 'dress':
+                    frontHtml = '<div class="dress"></div>';
+                    backHtml = frontHtml;
+                    break;
+                case 'skirt':
+                    frontHtml = `
+                        <div class="skirt">
+                            <div class="skirt-top"></div>
+                            <div class="skirt-bottom"></div>
+                        </div>
+                    `;
+                    backHtml = frontHtml;
+                    break;
+                case 'pants':
+                    frontHtml = `
+                        <div class="pants">
+                            <div class="pants-waist"></div>
+                            <div class="pant-leg left"></div>
+                            <div class="pant-leg right"></div>
+                        </div>
+                    `;
+                    backHtml = frontHtml;
+                    break;
+                case 'blouse':
+                    frontHtml = `
+                        <div class="blouse">
+                            <div class="blouse-body"></div>
+                            <div class="blouse-sleeve left"></div>
+                            <div class="blouse-sleeve right"></div>
+                        </div>
+                    `;
+                    backHtml = frontHtml;
+                    break;
+                case 'sweater':
+                    frontHtml = `
+                        <div class="sweater">
+                            <div class="sweater-body"></div>
+                            <div class="sweater-sleeve left"></div>
+                            <div class="sweater-sleeve right"></div>
+                        </div>
+                    `;
+                    backHtml = frontHtml;
+                    break;
+            }
+            clothingPreview.innerHTML = `
+                <div class="clothing-item front">${frontHtml}</div>
+                <div class="clothing-item back">${backHtml}</div>
+            `;
+            updateColor(colorPicker.value);
+        }
+
+        function updateColor(color) {
+            const elements = clothingPreview.querySelectorAll('.clothing-item div');
+            elements.forEach(element => {
+                element.style.color = color;
+                element.style.backgroundColor = color;
+            });
+        }
+
+        clothingType.addEventListener('change', (e) => {
+            updateClothingType(e.target.value);
+            // Reset rotation when changing clothing type
+            clothingPreview.classList.remove('flipped');
+        });
+
+        colorPicker.addEventListener('input', (e) => {
+            updateColor(e.target.value);
+        });
+
+        // Rotation handler
+        previewSection.addEventListener('click', function(e) {
+            e.preventDefault();
+            clothingPreview.classList.toggle('flipped');
+        });
+
+        // Initialize
+        updateClothingType('tshirt');
+        updateColor(colorPicker.value);
+
+        document.querySelector('.btn.save-design').addEventListener('click', () => {
+            const dialog = document.createElement('div');
+            dialog.className = 'alert-dialog';
+            dialog.innerHTML = `
+                <div class="title">Design Saved!</div>
+                <div class="message">Your design has been saved successfully.</div>
+                <div class="button-container">
+                    <button onclick="this.closest('.alert-dialog').remove();document.querySelector('.overlay').remove();">OK</button>
+                </div>
+            `;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(dialog);
+        });
+    </script>
+</body>
+</html>
